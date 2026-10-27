@@ -7,11 +7,11 @@ require_once 'config.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sports Locker - Rich & Interactive Dashboard</title>
+    <title>Sports Locker - Ultimate FX Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,500;0,700;0,900;1,700&display=swap" rel="stylesheet">
     <style>
         /* ==================================================== */
-        /* 🎨 THEME PRESETS (เน้นอ่านง่าย สบายตา) */
+        /* 🎨 THEME PRESETS (โทนสีเดิม นุ่มตา 100%) */
         /* ==================================================== */
 
         /* 1. 🕶️ Noir Sleek Dark - DEFAULT */
@@ -243,7 +243,7 @@ require_once 'config.php';
             text-transform: uppercase;
         }
 
-        /* Quick Action Buttons */
+        /* Action Buttons */
         .action-group {
             display: flex;
             gap: 10px;
@@ -313,12 +313,13 @@ require_once 'config.php';
             text-transform: uppercase;
         }
 
-        /* 4 Stat Cards */
+        /* 4 Stat Cards with 3D Tilt Perspective */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 16px;
             margin-bottom: 24px;
+            perspective: 1000px;
         }
 
         .stat-card {
@@ -328,21 +329,16 @@ require_once 'config.php';
             padding: 20px;
             border-radius: 10px;
             cursor: pointer;
-            transition: transform 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             overflow: hidden;
+            transform-style: preserve-3d;
         }
 
         .stat-card:hover {
-            transform: translateY(-4px) scale(1.02);
             box-shadow: 6px 6px 0px var(--shadow-color);
-        }
-
-        .stat-card:active {
-            transform: translateY(2px) scale(0.97);
-            box-shadow: 1px 1px 0px var(--shadow-color);
         }
 
         .stat-label {
@@ -368,16 +364,13 @@ require_once 'config.php';
         .num-red { color: var(--accent-red); }
         .num-blue { color: var(--accent-blue); }
 
-        /* ==================================================== */
-        /* 2-COLUMN MAIN LAYOUT (แก้ปัญหาหน้าเว็บดูโล้น) */
-        /* ==================================================== */
+        /* 2-Column Grid Layout */
         .main-dashboard-grid {
             display: grid;
             grid-template-columns: 1fr 340px;
             gap: 20px;
         }
 
-        /* Content Boxes */
         .content-box {
             background: var(--card-bg);
             border: 2px solid var(--card-border);
@@ -455,7 +448,7 @@ require_once 'config.php';
             font-weight: 700;
         }
 
-        /* Ticket Stub - Recent Transaction */
+        /* Ticket Stub */
         .ticket-stub {
             border: 2px solid var(--card-border);
             background: var(--bg-paper);
@@ -521,9 +514,7 @@ require_once 'config.php';
             color: var(--text-muted);
         }
 
-        /* ---------------------------------------------------- */
-        /* 🆕 NEW COMPONENT 1: STOCK PROGRESS TRACKER (สถิติคลัง) */
-        /* ---------------------------------------------------- */
+        /* Stock Status Components */
         .stock-list {
             display: flex;
             flex-direction: column;
@@ -559,9 +550,7 @@ require_once 'config.php';
             transition: width 0.5s ease;
         }
 
-        /* ---------------------------------------------------- */
-        /* 🆕 NEW COMPONENT 2: PEAK ACTIVITY CHART (กราฟความหนาแน่น) */
-        /* ---------------------------------------------------- */
+        /* Chart Components */
         .chart-bars {
             display: flex;
             align-items: flex-end;
@@ -597,9 +586,7 @@ require_once 'config.php';
             color: var(--text-muted);
         }
 
-        /* ---------------------------------------------------- */
-        /* 🐶🐱🐦 IN-THEME PETS */
-        /* ---------------------------------------------------- */
+        /* Pets */
         .pet-interactive {
             cursor: pointer;
             pointer-events: auto;
@@ -659,7 +646,78 @@ require_once 'config.php';
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        /* Particles & Pop Words */
+        /* ---------------------------------------------------- */
+        /* 🆕 NEW FX 1: MOUSE SPARKLE TRAIL (ละอองดาวตามเมาส์) */
+        /* ---------------------------------------------------- */
+        .mouse-sparkle {
+            position: fixed;
+            pointer-events: none;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-yellow);
+            border-radius: 50%;
+            z-index: 99999;
+            animation: sparkleFade 0.6s ease-out forwards;
+        }
+
+        @keyframes sparkleFade {
+            0% { opacity: 1; transform: scale(1) translate(0, 0); }
+            100% { opacity: 0; transform: scale(0) translate(var(--mx), var(--my)); }
+        }
+
+        /* ---------------------------------------------------- */
+        /* 🆕 NEW FX 2: COMBO COUNTER BADGE (ป้ายคอมโบ x2 / x5) */
+        /* ---------------------------------------------------- */
+        .combo-badge {
+            position: fixed;
+            font-weight: 900;
+            font-size: 26px;
+            font-style: italic;
+            color: var(--accent-yellow);
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            box-shadow: 4px 4px 0px var(--shadow-color);
+            padding: 4px 14px;
+            border-radius: 8px;
+            pointer-events: none;
+            z-index: 99999;
+            animation: comboPopAnim 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes comboPopAnim {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(0.4) rotate(-12deg); }
+            50% { transform: translate(-50%, -80%) scale(1.2) rotate(6deg); }
+            100% { opacity: 0; transform: translate(-50%, -120%) scale(1) rotate(0deg); }
+        }
+
+        /* ---------------------------------------------------- */
+        /* 🆕 NEW FX 3: TOAST NOTIFICATION (การ์ดแจ้งเตือนป๊อปอัป) */
+        /* ---------------------------------------------------- */
+        .toast-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            color: var(--ink);
+            border: 2px solid var(--accent-green);
+            padding: 12px 18px;
+            border-radius: 8px;
+            box-shadow: 4px 4px 0px var(--shadow-color);
+            font-weight: 700;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 100000;
+            transform: translateX(120%);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toast-notification.active {
+            transform: translateX(0);
+        }
+
+        /* Click Words & Particles */
         .click-pop-word {
             position: fixed;
             font-weight: 900;
@@ -798,7 +856,13 @@ require_once 'config.php';
 </head>
 <body data-theme="noir">
 
-    <!-- 1. น้องหมานักกีฬา (มุมซ้ายล่าง) -->
+    <!-- 🆕 Dynamic Toast Notification -->
+    <div class="toast-notification" id="toastBox">
+        <span>⚡</span>
+        <span id="toastMsg">ทำรายการสำเร็จ!</span>
+    </div>
+
+    <!-- สัตว์เลี้ยงประจำธีม -->
     <div class="bg-dog-decoration pet-interactive" onclick="petInteract(event, '🐶 โฮ่ง! (เจ้าตูบเชียร์การยืมของ)'); playThemeSound('borrow');">
         <svg width="70" height="60" viewBox="0 0 85 75" fill="none" xmlns="http://www.w3.org/2000/svg">
             <ellipse cx="40" cy="50" rx="22" ry="16" fill="var(--card-bg)" stroke="var(--ink)" stroke-width="2.5"/>
@@ -817,7 +881,6 @@ require_once 'config.php';
         </svg>
     </div>
 
-    <!-- 2. น้องแมวเล่นลูกบอล (มุมขวาล่าง) -->
     <div class="bg-cat-decoration pet-interactive" onclick="petInteract(event, '🐱 เหมียว~ (แมวขอปะทะลูกบอล!)'); playThemeSound('return');">
         <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="20" cy="20" r="17" fill="var(--accent-yellow)" stroke="var(--ink)" stroke-width="2.5"/>
@@ -841,19 +904,18 @@ require_once 'config.php';
     <!-- MAIN DASHBOARD CONTENT -->
     <div class="dashboard-wrapper">
         
-        <!-- Utility Top Bar & Theme Switcher -->
+        <!-- Utility Top Bar -->
         <div class="top-utility-bar">
             <div class="status-group">
                 <div class="live-status">
                     <div class="status-dot"></div>
                     <span>คลังอุปกรณ์: พร้อมใช้งาน</span>
                 </div>
-                <div class="achievement-badge" onclick="triggerPopFX(event, 'STREAK!'); playThemeSound('alert'); spawnConfetti(event);">
+                <div class="achievement-badge" onclick="handleButtonClick(event, 'STREAK!'); triggerToast('คืนตรงเวลา 100% ต่อเนื่อง 14 วัน!');">
                     🏆 คืนตรงเวลา 100%
                 </div>
             </div>
 
-            <!-- 🎨 THEME SWITCHER -->
             <div class="theme-switcher">
                 <span class="theme-label">THEME:</span>
                 <button class="theme-btn active" onclick="changeTheme('noir', this)">🕶️ Noir Dark</button>
@@ -865,7 +927,7 @@ require_once 'config.php';
             <button class="sound-toggle-btn" id="soundBtn" onclick="toggleSound()">🔊 SOUND: ON</button>
         </div>
 
-        <!-- Header & Quick Actions -->
+        <!-- Header Bar -->
         <header class="brand-bar">
             <div class="bg-bird-decoration pet-interactive" onclick="petInteract(event, '🐦 จิ๊บ! (นกกรรมการพร้อมเป่านกหวีด)'); playThemeSound('scan');">
                 <svg width="34" height="30" viewBox="0 0 45 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -879,49 +941,46 @@ require_once 'config.php';
             <div class="brand-title">SPORTS LOCKER // HUB</div>
             
             <div class="action-group">
-                <button class="btn-action btn-borrow" onclick="openScannerModal('ยืมอุปกรณ์ด่วน'); triggerPopFX(event, 'POW!'); playThemeSound('borrow'); spawnConfetti(event);">+ ยืมอุปกรณ์ด่วน</button>
-                <button class="btn-action btn-return" onclick="openScannerModal('รับคืนอุปกรณ์'); triggerPopFX(event, 'BAM!'); playThemeSound('return'); spawnConfetti(event);">↩️ รับคืนอุปกรณ์</button>
-                <button class="btn-action btn-scan" onclick="openScannerModal('สแกน QR / Barcode'); triggerPopFX(event, 'ZAP!'); playThemeSound('scan'); spawnConfetti(event);">📷 สแกน QR</button>
+                <button class="btn-action btn-borrow" onclick="openScannerModal('ยืมอุปกรณ์ด่วน'); handleButtonClick(event, 'POW!'); playThemeSound('borrow');">+ ยืมอุปกรณ์ด่วน</button>
+                <button class="btn-action btn-return" onclick="openScannerModal('รับคืนอุปกรณ์'); handleButtonClick(event, 'BAM!'); playThemeSound('return');">↩️ รับคืนอุปกรณ์</button>
+                <button class="btn-action btn-scan" onclick="openScannerModal('สแกน QR / Barcode'); handleButtonClick(event, 'ZAP!'); playThemeSound('scan');">📷 สแกน QR</button>
             </div>
         </header>
 
         <!-- Alert Banner -->
-        <div class="alert-tape" onclick="triggerPopFX(event, 'ALERT!'); playThemeSound('alert'); spawnConfetti(event);">
+        <div class="alert-tape" onclick="handleButtonClick(event, 'ALERT!'); triggerToast('แจ้งเตือน: เกินกำหนดส่งคืน 3 รายการ!');">
             <span class="alert-tag">ALERT</span>
-            <span>{{alertMessage}}</span> <!-- เช่น: พบอุปกรณ์เกินกำหนดส่งคืน 3 รายการ -->
+            <span>{{alertMessage}}</span>
         </div>
 
-        <!-- 4 Stat Cards -->
+        <!-- 4 Stat Cards (พร้อมเอฟเฟกต์ 3D Tilt + ตัวเลขนับขึ้น) -->
         <section class="stats-grid">
-            <div class="stat-card" onclick="triggerPopFX(event, 'READY!'); playThemeSound('card'); spawnConfetti(event);">
+            <div class="stat-card" onclick="handleButtonClick(event, 'READY!'); animateNumber(this.querySelector('.stat-number'), 12);">
                 <div class="stat-label">พร้อมให้ยืม</div>
                 <div class="stat-number num-green">{{totalAvailable}}</div>
             </div>
 
-            <div class="stat-card" onclick="triggerPopFX(event, 'BORROWED!'); playThemeSound('card'); spawnConfetti(event);">
+            <div class="stat-card" onclick="handleButtonClick(event, 'BORROWED!'); animateNumber(this.querySelector('.stat-number'), 8);">
                 <div class="stat-label">ถูกยืมวันนี้</div>
                 <div class="stat-number num-yellow">{{borrowedToday}}</div>
             </div>
 
-            <div class="stat-card" onclick="triggerPopFX(event, 'PENDING!'); playThemeSound('card'); spawnConfetti(event);">
+            <div class="stat-card" onclick="handleButtonClick(event, 'PENDING!'); animateNumber(this.querySelector('.stat-number'), 3);">
                 <div class="stat-label">รอส่งคืน</div>
                 <div class="stat-number num-red">{{pendingReturn}}</div>
             </div>
 
-            <div class="stat-card" onclick="triggerPopFX(event, 'ACTIVE!'); playThemeSound('card'); spawnConfetti(event);">
+            <div class="stat-card" onclick="handleButtonClick(event, 'ACTIVE!'); animateNumber(this.querySelector('.stat-number'), 24);">
                 <div class="stat-label">ผู้เข้าใช้บริการ</div>
                 <div class="stat-number num-blue">{{activeStudents}}</div>
             </div>
         </section>
 
-        <!-- ==================================================== -->
-        /* 2-COLUMN LAYOUT (ฝั่งซ้าย: ทำรายการ / ฝั่งขวา: มอนิเตอร์สถิติ) */
-        /* ==================================================== */
+        <!-- 2-COLUMN MAIN LAYOUT -->
         <div class="main-dashboard-grid">
             
-            <!-- Left Panel (Search & Latest Transaction) -->
+            <!-- Left Panel -->
             <div class="left-panel">
-                <!-- Search & Filter Bar -->
                 <div class="content-box">
                     <div class="section-title">
                         <span>SEARCH & FILTER // ค้นหาเร่งด่วน</span>
@@ -930,36 +989,33 @@ require_once 'config.php';
                     <div class="search-container">
                         <input type="text" class="search-input" placeholder="พิมพ์รหัสนักเรียน, เบอร์เสื้อพละ หรือรหัสอุปกรณ์..." value="{{searchQuery}}">
                         <div class="filter-tags">
-                            <button class="tag-btn active" onclick="toggleTag(this); triggerPopFX(event, 'ALL!'); playThemeSound('tag');">#ทั้งหมด</button>
-                            <button class="tag-btn" onclick="toggleTag(this); triggerPopFX(event, 'B-BALL!'); playThemeSound('tag');">#บาสเกตบอล</button>
-                            <button class="tag-btn" onclick="toggleTag(this); triggerPopFX(event, 'BADMINTON!'); playThemeSound('tag');">#แบดมินตัน</button>
-                            <button class="tag-btn" onclick="toggleTag(this); triggerPopFX(event, 'PINGPONG!'); playThemeSound('tag');">#ปิงปอง</button>
-                            <button class="tag-btn" onclick="toggleTag(this); triggerPopFX(event, 'SOCCER!'); playThemeSound('tag');">#ฟุตบอล</button>
+                            <button class="tag-btn active" onclick="toggleTag(this); handleButtonClick(event, 'ALL!');">#ทั้งหมด</button>
+                            <button class="tag-btn" onclick="toggleTag(this); handleButtonClick(event, 'B-BALL!');">#บาสเกตบอล</button>
+                            <button class="tag-btn" onclick="toggleTag(this); handleButtonClick(event, 'BADMINTON!');">#แบดมินตัน</button>
+                            <button class="tag-btn" onclick="toggleTag(this); handleButtonClick(event, 'PINGPONG!');">#ปิงปอง</button>
+                            <button class="tag-btn" onclick="toggleTag(this); handleButtonClick(event, 'SOCCER!');">#ฟุตบอล</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Recent Transaction -->
                 <div class="content-box">
                     <div class="section-title">LATEST CHECKOUT // รายการล่าสุด</div>
                     
-                    <div class="ticket-stub" onclick="triggerPopFX(event, 'STAMPED!'); playThemeSound('card'); spawnConfetti(event);">
+                    <div class="ticket-stub" onclick="handleButtonClick(event, 'STAMPED!'); triggerToast('ปั๊มตราตรวจสอบสิทธิ์สำเร็จ!');">
                         <div class="ticket-main">
-                            <div class="ticket-student">{{recentStudentName}}</div> <!-- เช่น: ด.ช. สมชาย ใจดี (ม.3/2) -->
-                            <div class="ticket-item">อุปกรณ์: {{recentEquipment}}</div> <!-- เช่น: ลูกบาสเกตบอล (B-001) -->
+                            <div class="ticket-student">{{recentStudentName}}</div>
+                            <div class="ticket-item">อุปกรณ์: {{recentEquipment}}</div>
                         </div>
                         <div class="ticket-side">
-                            <div class="status-stamp">{{recentStatus}}</div> <!-- เช่น: กำลังยืม -->
-                            <div class="time-stamp">เวลา {{recentTime}}</div> <!-- เช่น: 14:30 น. -->
+                            <div class="status-stamp">{{recentStatus}}</div>
+                            <div class="time-stamp">เวลา {{recentTime}}</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Panel (🆕 Side Analytics: ป้องกันหน้าจอโล้น) -->
+            <!-- Right Analytics Panel -->
             <div class="right-panel">
-                
-                <!-- 🆕 Component 1: Visual Stock Status -->
                 <div class="content-box">
                     <div class="section-title">
                         <span>STOCK STATUS // อุปกรณ์คงเหลือ</span>
@@ -997,7 +1053,6 @@ require_once 'config.php';
                     </div>
                 </div>
 
-                <!-- 🆕 Component 2: Peak Borrowing Activity Chart -->
                 <div class="content-box">
                     <div class="section-title">
                         <span>PEAK HOURS // ช่วงเวลายืมสูงสุด</span>
@@ -1021,7 +1076,6 @@ require_once 'config.php';
                         </div>
                     </div>
                 </div>
-
             </div>
 
         </div>
@@ -1039,22 +1093,111 @@ require_once 'config.php';
                 <div class="laser-line"></div>
                 <span class="scan-text">กำลังค้นหาสัญญาณ BARCODE...</span>
             </div>
-            <button class="btn-action btn-borrow" style="width: 100%; justify-content: center;" onclick="closeModal(); playThemeSound('borrow'); spawnConfetti(event);">จำลองการสแกนสำเร็จ!</button>
+            <button class="btn-action btn-borrow" style="width: 100%; justify-content: center;" onclick="closeModal(); triggerToast('ยืมสำเร็จ! ระบบบันทึกเวลาแล้ว'); handleButtonClick(event, 'SUCCESS!');">จำลองการสแกนสำเร็จ!</button>
         </div>
     </div>
 
-    <!-- JAVASCRIPT & SOUND SYNTH -->
+    <!-- JAVASCRIPT ENGINE WITH ALL INTERACTIVE FX -->
     <script>
         let currentTheme = 'noir';
         let soundEnabled = true;
+        let comboCount = 0;
+        let comboTimer = null;
 
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
+        // 1. Mouse Sparkle Trail
+        let lastSparkleTime = 0;
+        document.addEventListener('mousemove', function(e) {
+            const now = Date.now();
+            if (now - lastSparkleTime > 40) { // Limit frequency
+                lastSparkleTime = now;
+                const sparkle = document.createElement('div');
+                sparkle.className = 'mouse-sparkle';
+                sparkle.style.left = e.clientX + 'px';
+                sparkle.style.top = e.clientY + 'px';
+                
+                const mx = (Math.random() - 0.5) * 30 + 'px';
+                const my = (Math.random() - 0.5) * 30 + 'px';
+                sparkle.style.setProperty('--mx', mx);
+                sparkle.style.setProperty('--my', my);
+
+                document.body.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 600);
+            }
+        });
+
+        // 2. 3D Tilt Effect on Stat Cards
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.addEventListener('mousemove', function(e) {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                card.style.transform = `perspective(1000px) rotateX(${-y / 12}deg) rotateY(${x / 12}deg) translateY(-4px)`;
+            });
+
+            card.addEventListener('mouseleave', function() {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+            });
+        });
+
+        // 3. Combo System & Click Handlers
+        function handleButtonClick(event, word) {
+            triggerPopFX(event, word);
+            spawnConfetti(event);
+            playThemeSound('card');
+
+            // Handle Combo
+            comboCount++;
+            clearTimeout(comboTimer);
+            comboTimer = setTimeout(() => { comboCount = 0; }, 1500);
+
+            if (comboCount >= 2) {
+                showComboBadge(event, `COMBO x${comboCount}!`);
+            }
+        }
+
+        function showComboBadge(event, comboText) {
+            const badge = document.createElement('div');
+            badge.className = 'combo-badge';
+            badge.innerText = comboText;
+            badge.style.left = event.clientX + 'px';
+            badge.style.top = event.clientY + 'px';
+            document.body.appendChild(badge);
+            setTimeout(() => badge.remove(), 600);
+        }
+
+        // 4. Dynamic Toast Notification
+        function triggerToast(message) {
+            const toast = document.getElementById('toastBox');
+            document.getElementById('toastMsg').innerText = message;
+            toast.classList.add('active');
+            setTimeout(() => toast.classList.remove('active'), 2500);
+        }
+
+        // 5. Animated Number Rollup
+        function animateNumber(element, targetNum) {
+            let start = 0;
+            const duration = 600;
+            const stepTime = 30;
+            const steps = duration / stepTime;
+            const increment = targetNum / steps;
+
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= targetNum) {
+                    element.innerText = targetNum;
+                    clearInterval(timer);
+                } else {
+                    element.innerText = Math.floor(start);
+                }
+            }, stepTime);
+        }
+
+        // Web Audio Synth
         function playThemeSound(actionType) {
             if (!soundEnabled) return;
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
+            if (audioCtx.state === 'suspended') audioCtx.resume();
 
             const now = audioCtx.currentTime;
             const osc = audioCtx.createOscillator();
@@ -1064,75 +1207,36 @@ require_once 'config.php';
 
             if (currentTheme === 'noir') {
                 osc.type = 'square';
-                if (actionType === 'theme') {
-                    osc.frequency.setValueAtTime(300, now);
-                    osc.frequency.setValueAtTime(500, now + 0.05);
-                    gain.gain.setValueAtTime(0.08, now);
-                    gain.gain.linearRampToValueAtTime(0, now + 0.1);
-                } else if (actionType === 'borrow') {
-                    osc.frequency.setValueAtTime(350, now);
-                    osc.frequency.setValueAtTime(700, now + 0.06);
-                    gain.gain.setValueAtTime(0.1, now);
-                    gain.gain.linearRampToValueAtTime(0, now + 0.1);
-                } else {
-                    osc.frequency.setValueAtTime(450, now);
-                    gain.gain.setValueAtTime(0.08, now);
-                    gain.gain.linearRampToValueAtTime(0, now + 0.04);
-                }
-                osc.start(now);
-                osc.stop(now + 0.12);
-            }
-            else if (currentTheme === 'vintage') {
-                osc.type = 'triangle';
-                if (actionType === 'theme') {
-                    osc.frequency.setValueAtTime(500, now);
-                    osc.frequency.setValueAtTime(650, now + 0.05);
-                    gain.gain.setValueAtTime(0.12, now);
-                    gain.gain.linearRampToValueAtTime(0, now + 0.12);
-                } else {
-                    osc.frequency.setValueAtTime(900, now);
-                    osc.frequency.exponentialRampToValueAtTime(150, now + 0.03);
-                    gain.gain.setValueAtTime(0.12, now);
-                    gain.gain.linearRampToValueAtTime(0, now + 0.03);
-                }
-                osc.start(now);
-                osc.stop(now + 0.15);
-            }
-            else if (currentTheme === 'cyber') {
-                osc.type = 'sawtooth';
-                if (actionType === 'scan' || actionType === 'borrow') {
-                    osc.frequency.setValueAtTime(1200, now);
-                    osc.frequency.exponentialRampToValueAtTime(300, now + 0.08);
-                    gain.gain.setValueAtTime(0.08, now);
-                    gain.gain.linearRampToValueAtTime(0, now + 0.08);
-                } else {
-                    osc.frequency.setValueAtTime(800, now);
-                    osc.frequency.exponentialRampToValueAtTime(350, now + 0.04);
-                    gain.gain.setValueAtTime(0.06, now);
-                    gain.gain.linearRampToValueAtTime(0, now + 0.04);
-                }
+                osc.frequency.setValueAtTime(350 + (comboCount * 50), now);
+                gain.gain.setValueAtTime(0.08, now);
+                gain.gain.linearRampToValueAtTime(0, now + 0.1);
                 osc.start(now);
                 osc.stop(now + 0.1);
-            }
-            else if (currentTheme === 'charcoal') {
-                osc.type = 'sine';
-                if (actionType === 'theme') {
-                    osc.frequency.setValueAtTime(400, now);
-                    osc.frequency.setValueAtTime(600, now + 0.06);
-                    gain.gain.setValueAtTime(0.12, now);
-                    gain.gain.linearRampToValueAtTime(0, now + 0.12);
-                } else {
-                    osc.frequency.setValueAtTime(300, now);
-                    osc.frequency.exponentialRampToValueAtTime(700, now + 0.05);
-                    gain.gain.setValueAtTime(0.15, now);
-                    gain.gain.linearRampToValueAtTime(0, now + 0.05);
-                }
+            } else if (currentTheme === 'vintage') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(800 + (comboCount * 80), now);
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.linearRampToValueAtTime(0, now + 0.08);
                 osc.start(now);
-                osc.stop(now + 0.12);
+                osc.stop(now + 0.08);
+            } else if (currentTheme === 'cyber') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(1000 + (comboCount * 100), now);
+                gain.gain.setValueAtTime(0.08, now);
+                gain.gain.linearRampToValueAtTime(0, now + 0.06);
+                osc.start(now);
+                osc.stop(now + 0.06);
+            } else if (currentTheme === 'charcoal') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400 + (comboCount * 60), now);
+                gain.gain.setValueAtTime(0.12, now);
+                gain.gain.linearRampToValueAtTime(0, now + 0.08);
+                osc.start(now);
+                osc.stop(now + 0.08);
             }
         }
 
-        // Theme Switcher Logic
+        // Standard Utility Functions
         function changeTheme(themeName, btnElement) {
             currentTheme = themeName;
             document.body.setAttribute('data-theme', themeName);
@@ -1144,10 +1248,8 @@ require_once 'config.php';
         function toggleSound() {
             soundEnabled = !soundEnabled;
             document.getElementById('soundBtn').innerText = soundEnabled ? '🔊 SOUND: ON' : '🔇 SOUND: OFF';
-            if (soundEnabled) playThemeSound('card');
         }
 
-        // Pop Text FX
         function triggerPopFX(event, word) {
             const pop = document.createElement('div');
             pop.className = 'click-pop-word';
@@ -1158,18 +1260,17 @@ require_once 'config.php';
             setTimeout(() => pop.remove(), 500);
         }
 
-        // Confetti Burst
         function spawnConfetti(event) {
             const colors = ['#f59e0b', '#38bdf8', '#34d399', '#f43f5e', '#ffffff'];
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 8; i++) {
                 const p = document.createElement('div');
                 p.className = 'confetti-particle';
                 p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 p.style.left = event.clientX + 'px';
                 p.style.top = event.clientY + 'px';
                 
-                const vx = (Math.random() - 0.5) * 140 + 'px';
-                const vy = (Math.random() - 0.5) * 140 + 'px';
+                const vx = (Math.random() - 0.5) * 120 + 'px';
+                const vy = (Math.random() - 0.5) * 120 + 'px';
                 p.style.setProperty('--vx', vx);
                 p.style.setProperty('--vy', vy);
 
@@ -1178,10 +1279,8 @@ require_once 'config.php';
             }
         }
 
-        // Pet Speech Bubbles
         function petInteract(event, text) {
             spawnConfetti(event);
-            
             const existing = document.querySelector('.speech-bubble-pop');
             if (existing) existing.remove();
 
@@ -1195,13 +1294,11 @@ require_once 'config.php';
             setTimeout(() => bubble.remove(), 1600);
         }
 
-        // Tag Filter Toggle
         function toggleTag(btn) {
             document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
         }
 
-        // Modal Controls
         function openScannerModal(title) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalOverlay').classList.add('active');
